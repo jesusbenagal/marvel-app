@@ -1,3 +1,5 @@
+import { GridContainer } from "@/components/core";
+
 export default function MainView() {
-  return <div>MainView</div>;
+  return <GridContainer>Main View</GridContainer>;
 }

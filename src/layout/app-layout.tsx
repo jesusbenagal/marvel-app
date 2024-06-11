@@ -1,10 +1,12 @@
+import { Header } from "@/components/core";
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <div>Header</div>
+      <Header />
       <main
         style={{
-          padding: "2rem 1rem 1rem 6rem",
+          padding: "3rem 2.5rem 3rem",
         }}
       >
         {children}
