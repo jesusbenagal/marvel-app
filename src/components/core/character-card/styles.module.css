@@ -1,0 +1,39 @@
+.card {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.cardImage {
+  width: 100%;
+  display: block;
+}
+
+.cardFooter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: 4px solid red;
+}
+
+.cardName {
+  font-size: 1em;
+}
+
+.cardHeart {
+  transition: fill 0.3s ease;
+  width: 20px;
+  height: 20px;
+}
+
+.card:hover .cardHeart {
+  fill: white;
+}

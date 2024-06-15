@@ -25,7 +25,7 @@ const styles: StylesObject = {
     width: "100%",
     paddingBottom: "0.5rem",
     borderBottom: "1px solid #000000",
-    gap: "0.5rem",
+    gap: "1rem",
   },
   searchResults: {
     fontWeight: 400,
@@ -34,7 +34,7 @@ const styles: StylesObject = {
   },
 };
 
-export const SearchBar = () => {
+export default function SearchBar() {
   return (
     <div style={styles.searchBar}>
       <div style={styles.searchContainer}>
@@ -48,4 +48,4 @@ export const SearchBar = () => {
       <span style={styles.searchResults}>50 Results</span>
     </div>
   );
-};
+}

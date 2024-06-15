@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import MarvelLogo from "@/assets/marvel-logo.png";
-import HeartFill from "@/assets/heart-fill.png";
+import HeartFill from "@/assets/heart-fill.svg";
 
 import { StylesObject } from "@/interfaces/global";
 import { appRoutes } from "@/constants/app-routes";

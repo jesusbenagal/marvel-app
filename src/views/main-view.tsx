@@ -1,5 +1,4 @@
-import { GridContainer } from "@/components/core";
-import { SearchBar } from "@/components/core/search-bar";
+import { GridContainer, SearchBar, CharacterCard } from "@/components/core";
 
 export default function MainView() {
   return (
@@ -14,7 +13,7 @@ export default function MainView() {
           paddingTop: "1rem",
         }}
       >
-        Main View
+        <CharacterCard />
       </GridContainer>
     </div>
   );
