@@ -5,12 +5,10 @@ import AppLayout from "@/layout/app-layout";
 
 import Router from "@/router";
 
-import { swrConfig } from "@/api/config/swr-config";
-
 export default function App() {
   return (
     <BrowserRouter>
-      <SWRConfig value={swrConfig}>
+      <SWRConfig>
         <AppLayout>
           <Router />
         </AppLayout>

@@ -1,5 +1,14 @@
+import { useState } from "react";
+
 import SearchIcon from "@/assets/search-icon.png";
-import { StylesObject } from "@/interfaces/global";
+
+import type { StylesObject } from "@/interfaces/global";
+
+interface ISearchBarProps {
+  count: number;
+  isLoading: boolean;
+  setSearchValue: (value: string | null) => void;
+}
 
 const styles: StylesObject = {
   searchBar: {
@@ -22,7 +31,7 @@ const styles: StylesObject = {
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    width: "100%",
+    width: "99%",
     paddingBottom: "0.5rem",
     borderBottom: "1px solid #000000",
     gap: "1rem",
@@ -34,7 +43,19 @@ const styles: StylesObject = {
   },
 };
 
-export default function SearchBar() {
+export default function SearchBar({
+  count,
+  isLoading,
+  setSearchValue,
+}: ISearchBarProps): JSX.Element {
+  const [value, setValue] = useState<string>("");
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setSearchValue(value);
+    }
+  };
+
   return (
     <div style={styles.searchBar}>
       <div style={styles.searchContainer}>
@@ -42,10 +63,15 @@ export default function SearchBar() {
         <input
           type="text"
           placeholder="Search a character..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={handleKeyPress}
           style={styles.searchInput}
         />
       </div>
-      <span style={styles.searchResults}>50 Results</span>
+      <span style={styles.searchResults}>
+        {isLoading ? "Loading" : count} results
+      </span>
     </div>
   );
 }

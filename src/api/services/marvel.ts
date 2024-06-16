@@ -3,6 +3,8 @@ import CryptoJS from "crypto-js";
 import { createAxios } from "@/utils/api";
 import { apiRoutes } from "@/constants/api-routes";
 
+import type { IApiResponse, ICharacter } from "@/interfaces/api";
+
 const marvelInstance = createAxios(apiRoutes.base);
 
 // Generate timestamp and hash for Marvel API
@@ -13,10 +15,20 @@ const hash = CryptoJS.MD5(
   }`
 ).toString();
 
-export const getCharacters = async () => {
-  const { data } = await marvelInstance.get(`${apiRoutes.characters.base}`, {
+export const getCharacters = async (
+  name: string | null
+): Promise<{
+  count: number;
+  characters: ICharacter[];
+}> => {
+  const {
+    data: {
+      data: { count, results: characters },
+    },
+  } = await marvelInstance.get<IApiResponse>(`${apiRoutes.characters.base}`, {
     params: {
       limit: 50,
+      ...(name && { nameStartsWith: name }),
       orderBy: "name",
       ts: timestamp,
       apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
@@ -24,11 +36,17 @@ export const getCharacters = async () => {
     },
   });
 
-  return data;
+  return { count, characters };
 };
 
-export const getCharacterById = async (id: number) => {
-  const { data } = await marvelInstance.get(
+export const getCharacterById = async (
+  id: number
+): Promise<{ count: number; characters: ICharacter[] }> => {
+  const {
+    data: {
+      data: { count, results: characters },
+    },
+  } = await marvelInstance.get<IApiResponse>(
     `${apiRoutes.characters.base}/${id}`,
     {
       params: {
@@ -39,22 +57,5 @@ export const getCharacterById = async (id: number) => {
     }
   );
 
-  return data;
-};
-
-export const getCharacterComics = async (id: number) => {
-  const { data } = await marvelInstance.get(
-    `${apiRoutes.characters.base}/${id}${apiRoutes.characters.comics}`,
-    {
-      params: {
-        limit: 10,
-        orderBy: "title",
-        ts: timestamp,
-        apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
-        hash,
-      },
-    }
-  );
-
-  return data;
+  return { count, characters };
 };
