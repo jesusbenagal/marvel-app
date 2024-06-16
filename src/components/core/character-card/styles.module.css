@@ -3,7 +3,15 @@
   width: 200px;
   height: 230px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 90%,
+    96% 95%,
+    91% 100%,
+    45% 100%,
+    0 100%
+  );
 }
 
 .card:hover {

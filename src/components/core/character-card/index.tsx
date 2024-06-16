@@ -17,8 +17,20 @@ export default function CharacterCard({
 }: ICharacterCardProps) {
   const navigate = useNavigate();
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      navigate(`/character/${id}`);
+    }
+  };
+
   return (
-    <div className={styles.card} onClick={() => navigate(`/character/${id}`)}>
+    <div
+      className={styles.card}
+      onClick={() => navigate(`/character/${id}`)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+    >
       <img src={imageUrl} alt="Character" className={styles.cardImage} />
       <div className={styles.cardFooter}>
         <div className={styles.cardName}>{name}</div>
