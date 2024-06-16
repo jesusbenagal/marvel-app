@@ -42,11 +42,12 @@ export default function MainView() {
         </div>
       ) : (
         <GridContainer style={styles.gridContainer}>
-          {characters.map((character) => (
+          {characters.map(({ id, name, thumbnail: { path, extension } }) => (
             <CharacterCard
-              key={character.id}
-              name={character.name}
-              imageUrl={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+              key={id}
+              id={id}
+              name={name}
+              imageUrl={`${path}.${extension}`}
             />
           ))}
         </GridContainer>

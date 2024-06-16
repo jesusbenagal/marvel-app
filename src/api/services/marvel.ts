@@ -39,12 +39,10 @@ export const getCharacters = async (
   return { count, characters };
 };
 
-export const getCharacterById = async (
-  id: number
-): Promise<{ count: number; characters: ICharacter[] }> => {
+export const getCharacterById = async (id: number): Promise<ICharacter[]> => {
   const {
     data: {
-      data: { count, results: characters },
+      data: { results: characters },
     },
   } = await marvelInstance.get<IApiResponse>(
     `${apiRoutes.characters.base}/${id}`,
@@ -57,5 +55,5 @@ export const getCharacterById = async (
     }
   );
 
-  return { count, characters };
+  return characters;
 };

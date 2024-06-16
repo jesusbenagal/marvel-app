@@ -14,6 +14,7 @@ const styles: StylesObject = {
     padding: "16px",
     backgroundColor: "#000000",
     height: "84px",
+    borderBottom: ".5px solid #ffffff",
   },
   favouritesContainer: {
     display: "flex",
