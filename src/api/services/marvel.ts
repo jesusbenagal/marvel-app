@@ -3,7 +3,7 @@ import CryptoJS from "crypto-js";
 import { createAxios } from "@/utils/api";
 import { apiRoutes } from "@/constants/api-routes";
 
-import type { IApiResponse, ICharacter } from "@/interfaces/api";
+import type { IApiResponse, ICharacter, IComic } from "@/interfaces/api";
 
 const marvelInstance = createAxios(apiRoutes.base);
 
@@ -25,16 +25,19 @@ export const getCharacters = async (
     data: {
       data: { count, results: characters },
     },
-  } = await marvelInstance.get<IApiResponse>(`${apiRoutes.characters.base}`, {
-    params: {
-      limit: 50,
-      ...(name && { nameStartsWith: name }),
-      orderBy: "name",
-      ts: timestamp,
-      apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
-      hash,
-    },
-  });
+  } = await marvelInstance.get<IApiResponse<ICharacter>>(
+    `${apiRoutes.characters.base}`,
+    {
+      params: {
+        limit: 50,
+        ...(name && { nameStartsWith: name }),
+        orderBy: "name",
+        ts: timestamp,
+        apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
+        hash,
+      },
+    }
+  );
 
   return { count, characters };
 };
@@ -44,7 +47,7 @@ export const getCharacterById = async (id: number): Promise<ICharacter[]> => {
     data: {
       data: { results: characters },
     },
-  } = await marvelInstance.get<IApiResponse>(
+  } = await marvelInstance.get<IApiResponse<ICharacter>>(
     `${apiRoutes.characters.base}/${id}`,
     {
       params: {
@@ -56,4 +59,25 @@ export const getCharacterById = async (id: number): Promise<ICharacter[]> => {
   );
 
   return characters;
+};
+
+export const getCharacterComics = async (id: number): Promise<IComic[]> => {
+  const {
+    data: {
+      data: { results: comics },
+    },
+  } = await marvelInstance.get<IApiResponse<IComic>>(
+    `${apiRoutes.characters.base}/${id}${apiRoutes.characters.comics}`,
+    {
+      params: {
+        orderBy: "onsaleDate",
+        limit: 100,
+        ts: timestamp,
+        apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
+        hash,
+      },
+    }
+  );
+
+  return comics;
 };

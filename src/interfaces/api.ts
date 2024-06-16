@@ -1,19 +1,18 @@
-export interface IApiResponse {
+export interface IApiResponse<T> {
   code: number;
   status: string;
   copyright: string;
   attibutionText: string;
   attibutionHTML: string;
   etag: string;
-  data: IDataContainer;
+  data: IDataContainer<T>;
 }
-
-export interface IDataContainer {
+export interface IDataContainer<T> {
   offset: number;
   limit: number;
   total: number;
   count: number;
-  results: ICharacter[];
+  results: T[];
 }
 
 interface IThumbnail {
@@ -39,4 +38,17 @@ export interface ICharacter {
   description: string;
   thumbnail: IThumbnail;
   comics: IComics;
+}
+
+export interface IComicDate {
+  type: string;
+  date: string;
+}
+
+export interface IComic {
+  id: number;
+  title: string;
+  description: string;
+  dates: IComicDate[];
+  thumbnail: IThumbnail;
 }

@@ -1,14 +1,15 @@
 import useSWR from "swr";
 
-import { getCharacterById } from "@/api/services/marvel";
+import { getCharacterById, getCharacterComics } from "@/api/services/marvel";
 
 export const useGetCharacterInfo = (id: number) => {
   const { data, isLoading, error } = useSWR(
     `character/${id}`,
     async () => {
       const character = await getCharacterById(id);
+      const comics = await getCharacterComics(id);
 
-      return character;
+      return { character, comics };
     },
     {
       revalidateOnFocus: false,
@@ -18,7 +19,8 @@ export const useGetCharacterInfo = (id: number) => {
   );
 
   return {
-    character: data ? data[0] : null,
+    character: data ? data.character[0] : null,
+    comics: data ? data.comics : [],
     isLoading: isLoading || (!error && !data),
     isError: !!error,
   };
