@@ -8,6 +8,9 @@ interface ISearchBarProps {
   count: number;
   isLoading: boolean;
   setSearchValue: (value: string | null) => void;
+  totalFavourites: number;
+  isFavouriteFilter: boolean;
+  setIsFavouriteFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const styles: StylesObject = {
@@ -31,7 +34,7 @@ const styles: StylesObject = {
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    width: "99%",
+    width: "100%",
     paddingBottom: "0.5rem",
     borderBottom: "1px solid #000000",
     gap: "1rem",
@@ -47,13 +50,31 @@ export default function SearchBar({
   count,
   isLoading,
   setSearchValue,
+  isFavouriteFilter,
+  setIsFavouriteFilter,
+  totalFavourites,
 }: ISearchBarProps): JSX.Element {
   const [value, setValue] = useState<string>("");
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setSearchValue(value);
+      if (isFavouriteFilter) {
+        setIsFavouriteFilter(false);
+      }
     }
+  };
+
+  const renderResults = () => {
+    if (isFavouriteFilter) {
+      return `${totalFavourites} results`;
+    }
+
+    if (isLoading) {
+      return "Loading Results";
+    }
+
+    return `${count} results`;
   };
 
   return (
@@ -69,9 +90,7 @@ export default function SearchBar({
           style={styles.searchInput}
         />
       </div>
-      <span style={styles.searchResults}>
-        {isLoading ? "Loading" : count} results
-      </span>
+      <span style={styles.searchResults}>{renderResults()}</span>
     </div>
   );
 }

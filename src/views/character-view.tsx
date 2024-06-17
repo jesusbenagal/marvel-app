@@ -7,7 +7,7 @@ import { useGetCharacterInfo } from "@/hooks/api/use-get-character-info";
 export default function CharacterView() {
   const { id } = useParams();
 
-  const { character, comics, isLoading, isError } = useGetCharacterInfo(
+  const { character, comics, isLoading, isError, mutate } = useGetCharacterInfo(
     Number(id)
   );
 
@@ -17,11 +17,7 @@ export default function CharacterView() {
 
   return (
     <div>
-      <CharacterHeader
-        name={character.name}
-        imageUrl={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-        description={character.description}
-      />
+      <CharacterHeader character={character} mutate={mutate} />
       <CharacterComics comics={comics} />
     </div>
   );

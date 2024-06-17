@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import MarvelLogo from "@/assets/marvel-logo.png";
 import HeartFill from "@/assets/heart-fill.svg";
@@ -36,17 +36,30 @@ const styles: StylesObject = {
 };
 
 export default function Header() {
-  const { totalFavourites } = useAppContext();
+  const { totalFavourites, setIsFavouriteFilter } = useAppContext();
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleClickLogo = () => {
+    if (pathname !== appRoutes.HOME) {
+      navigate(appRoutes.HOME);
+    }
+    setIsFavouriteFilter(false);
+  };
+
+  const handleClickFavourites = () => {
+    setIsFavouriteFilter(true);
+    navigate(appRoutes.HOME);
+  };
 
   return (
     <div style={styles.headerContainer}>
-      <button onClick={() => navigate(appRoutes.HOME)} style={styles.button}>
+      <button onClick={() => handleClickLogo()} style={styles.button}>
         <img src={MarvelLogo} alt="logo" />
       </button>
       <div style={styles.favouritesContainer}>
-        <button style={styles.button}>
+        <button style={styles.button} onClick={() => handleClickFavourites()}>
           <img src={HeartFill} alt="heart-fill" />
         </button>
         <span style={styles.favouritesNumber}>{totalFavourites}</span>

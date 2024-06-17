@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo } from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 import { useMediaQuery, useLocalStorage } from "usehooks-ts";
 
 import type { ICharacter } from "@/interfaces/api";
@@ -11,6 +11,8 @@ interface IAppContext {
     action: "add" | "remove"
   ) => void;
   totalFavourites: number;
+  isFavouriteFilter: boolean;
+  setIsFavouriteFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext({} as IAppContext);
@@ -20,6 +22,8 @@ export default function AppProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [isFavouriteFilter, setIsFavouriteFilter] = useState<boolean>(false);
+
   const mqDetector = useMediaQuery("(max-width: 768px)");
 
   const [favouriteCharacters, setFavouriteCharacters] = useLocalStorage<
@@ -50,8 +54,17 @@ export default function AppProvider({
       favouriteCharacters,
       handleChangeFavourites,
       totalFavourites,
+      isFavouriteFilter,
+      setIsFavouriteFilter,
     }),
-    [mqDetector, favouriteCharacters, handleChangeFavourites, totalFavourites]
+    [
+      mqDetector,
+      favouriteCharacters,
+      handleChangeFavourites,
+      totalFavourites,
+      isFavouriteFilter,
+      setIsFavouriteFilter,
+    ]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

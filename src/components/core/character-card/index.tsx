@@ -39,6 +39,26 @@ export default function CharacterCard({
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleChangeFavourites(
+      { ...character, isFavourite: !isFavourite },
+      isFavourite ? "remove" : "add"
+    );
+    mutate((prevData) => {
+      if (!prevData) return prevData;
+      return {
+        charactersWithFavourites: prevData.charactersWithFavourites.map((c) => {
+          if (c.id === character.id) {
+            return { ...c, isFavourite: !isFavourite };
+          }
+          return c;
+        }),
+        count: prevData.count,
+      };
+    }, false);
+  };
+
   return (
     <div
       className={styles.card}
@@ -54,27 +74,7 @@ export default function CharacterCard({
       />
       <div className={styles.cardFooter}>
         <div className={styles.cardName}>{name}</div>
-        <button
-          className={styles.button}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleChangeFavourites(character, isFavourite ? "remove" : "add");
-            mutate((prevData) => {
-              if (!prevData) return prevData;
-              return {
-                charactersWithFavourites: prevData.charactersWithFavourites.map(
-                  (c) => {
-                    if (c.id === character.id) {
-                      return { ...c, isFavourite: !isFavourite };
-                    }
-                    return c;
-                  }
-                ),
-                count: prevData.count,
-              };
-            }, false);
-          }}
-        >
+        <button className={styles.button} onClick={handleClick} type="button">
           <img
             src={isFavourite ? heartFill : heartEmpty}
             alt="Add to favourites"
