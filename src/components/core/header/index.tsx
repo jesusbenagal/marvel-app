@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import MarvelLogo from "@/assets/marvel-logo.png";
 import HeartFill from "@/assets/heart-fill.svg";
 
-import { StylesObject } from "@/interfaces/global";
+import { useAppContext } from "@/hooks/context/use-app-context";
+
 import { appRoutes } from "@/constants/app-routes";
+
+import type { StylesObject } from "@/interfaces/global";
 
 const styles: StylesObject = {
   headerContainer: {
@@ -33,6 +36,8 @@ const styles: StylesObject = {
 };
 
 export default function Header() {
+  const { totalFavourites } = useAppContext();
+
   const navigate = useNavigate();
 
   return (
@@ -44,7 +49,7 @@ export default function Header() {
         <button style={styles.button}>
           <img src={HeartFill} alt="heart-fill" />
         </button>
-        <span style={styles.favouritesNumber}>3</span>
+        <span style={styles.favouritesNumber}>{totalFavourites}</span>
       </div>
     </div>
   );

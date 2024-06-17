@@ -12,9 +12,6 @@
     45% 100%,
     0 100%
   );
-}
-
-.card:hover {
   cursor: pointer;
 }
 
@@ -40,6 +37,12 @@
 
 .cardName {
   font-size: 1em;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .cardHeart {

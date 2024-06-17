@@ -27,7 +27,8 @@ const spinnerColor = "red";
 export default function MainView() {
   const [searchValue, setSearchValue] = useState<string | null>(null);
 
-  const { characters, count, isLoading } = useGetCharacters(searchValue);
+  const { characters, count, mutate, isLoading } =
+    useGetCharacters(searchValue);
 
   return (
     <div style={styles.container}>
@@ -42,12 +43,11 @@ export default function MainView() {
         </div>
       ) : (
         <GridContainer style={styles.gridContainer}>
-          {characters.map(({ id, name, thumbnail: { path, extension } }) => (
+          {characters.map((character) => (
             <CharacterCard
-              key={id}
-              id={id}
-              name={name}
-              imageUrl={`${path}.${extension}`}
+              key={character.id}
+              character={character}
+              mutate={mutate}
             />
           ))}
         </GridContainer>

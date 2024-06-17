@@ -38,6 +38,7 @@ export interface ICharacter {
   description: string;
   thumbnail: IThumbnail;
   comics: IComics;
+  isFavourite?: boolean;
 }
 
 export interface IComicDate {

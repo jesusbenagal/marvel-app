@@ -71,7 +71,7 @@ export const getCharacterComics = async (id: number): Promise<IComic[]> => {
     {
       params: {
         orderBy: "onsaleDate",
-        limit: 100,
+        limit: 20,
         ts: timestamp,
         apikey: import.meta.env.VITE_MARVEL_PUBLIC_API_KEY,
         hash,
