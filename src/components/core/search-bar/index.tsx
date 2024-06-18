@@ -25,6 +25,7 @@ const styles: StylesObject = {
     width: "100%",
     textTransform: "uppercase",
     color: "#AAAAAA",
+    fontSize: "14px",
   },
   searchIcon: {
     width: "12px",

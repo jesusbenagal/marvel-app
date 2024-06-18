@@ -8,6 +8,7 @@ import { useAppContext } from "@/hooks/context/use-app-context";
 import styles from "./styles.module.css";
 
 import type { ICharacter, IComic } from "@/interfaces/api";
+import type { StylesObject } from "@/interfaces/global";
 
 interface ICharacterHeaderProps {
   character: ICharacter;
@@ -16,11 +17,27 @@ interface ICharacterHeaderProps {
     comics: IComic[];
   }>;
 }
+
+const getStyles = (isMobile: boolean): StylesObject => ({
+  headerContainer: {
+    flexDirection: isMobile ? "column" : "row",
+    height: isMobile ? "auto" : "290px",
+  },
+  img: {
+    width: isMobile ? "100%" : "auto",
+    height: isMobile ? "auto" : "100%",
+  },
+  descriptionContainer: {
+    padding: isMobile ? "1rem" : "2rem",
+    width: isMobile ? "100%" : "40%",
+  },
+});
+
 export default function CharacterHeader({
   character,
   mutate,
 }: ICharacterHeaderProps) {
-  const { handleChangeFavourites } = useAppContext();
+  const { handleChangeFavourites, mqDetector } = useAppContext();
 
   const {
     name,
@@ -28,6 +45,8 @@ export default function CharacterHeader({
     thumbnail: { extension, path },
     isFavourite,
   } = character;
+
+  const { headerContainer, img, descriptionContainer } = getStyles(mqDetector);
 
   const handleFavourite = () => {
     handleChangeFavourites(
@@ -50,13 +69,9 @@ export default function CharacterHeader({
   };
 
   return (
-    <div className={styles.headerContainer}>
-      <img
-        src={`${path}.${extension}`}
-        alt={`Character-${name}`}
-        className={styles.img}
-      />
-      <div className={styles.description}>
+    <div className={styles.headerContainer} style={headerContainer}>
+      <img src={`${path}.${extension}`} alt={`Character-${name}`} style={img} />
+      <div style={descriptionContainer}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{name}</h1>
           <button

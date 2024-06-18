@@ -8,12 +8,13 @@ import { useAppContext } from "@/hooks/context/use-app-context";
 
 import type { StylesObject } from "@/interfaces/global";
 
-const styles: StylesObject = {
+const getStyles = (isMobile: boolean): StylesObject => ({
   container: {
     padding: "2rem 2.5rem 3rem",
   },
   gridContainer: {
     paddingTop: "1rem",
+    gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(7, 1fr)",
   },
   spinnerContainer: {
     padding: "3rem 2.5rem 3rem",
@@ -22,12 +23,12 @@ const styles: StylesObject = {
     alignItems: "center",
   },
   favouritesText: {
-    fontSize: "1.7rem",
+    fontSize: "1.2rem",
     fontWeight: 600,
     marginBottom: "1rem",
     textTransform: "uppercase",
   },
-};
+});
 
 const spinnerColor = "red";
 
@@ -37,7 +38,11 @@ export default function MainView() {
     isFavouriteFilter,
     setIsFavouriteFilter,
     totalFavourites,
+    mqDetector,
   } = useAppContext();
+
+  const { container, gridContainer, spinnerContainer, favouritesText } =
+    getStyles(mqDetector);
 
   const [searchValue, setSearchValue] = useState<string | null>(null);
 
@@ -61,8 +66,8 @@ export default function MainView() {
   };
 
   return (
-    <div style={styles.container}>
-      {isFavouriteFilter && <h1 style={styles.favouritesText}>Favorites</h1>}
+    <div style={container}>
+      {isFavouriteFilter && <h1 style={favouritesText}>Favorites</h1>}
       <SearchBar
         count={count}
         isLoading={isLoading}
@@ -72,13 +77,11 @@ export default function MainView() {
         setIsFavouriteFilter={setIsFavouriteFilter}
       />
       {isLoading ? (
-        <div style={styles.spinnerContainer}>
+        <div style={spinnerContainer}>
           <ScaleLoader color={spinnerColor} />
         </div>
       ) : (
-        <GridContainer style={styles.gridContainer}>
-          {renderCards()}
-        </GridContainer>
+        <GridContainer style={gridContainer}>{renderCards()}</GridContainer>
       )}
     </div>
   );
