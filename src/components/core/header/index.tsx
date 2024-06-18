@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
-import MarvelLogo from "@/assets/marvel-logo.png";
+import MarvelLogo from "@/assets/marvel-logo.svg";
 import HeartFill from "@/assets/heart-fill.svg";
 
 import { useAppContext } from "@/hooks/context/use-app-context";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import SearchIcon from "@/assets/search-icon.png";
+import SearchIcon from "@/assets/search-icon.svg";
 
 import type { StylesObject } from "@/interfaces/global";
 
