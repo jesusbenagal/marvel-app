@@ -20,24 +20,11 @@ interface IThumbnail {
   path: string;
 }
 
-interface IComics {
-  available: number;
-  collectionURI: string;
-  items: IComicItem[];
-  returned: number;
-}
-
-interface IComicItem {
-  resourceURI: string;
-  name: string;
-}
-
 export interface ICharacter {
   id: number;
   name: string;
   description: string;
   thumbnail: IThumbnail;
-  comics: IComics;
   isFavourite?: boolean;
 }
 
