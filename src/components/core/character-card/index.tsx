@@ -72,6 +72,7 @@ export default function CharacterCard({
 
   return (
     <div
+      data-testid="character-card"
       className={styles.card}
       onClick={() => navigate(`/character/${id}`)}
       onKeyDown={handleKeyDown}
@@ -89,7 +90,12 @@ export default function CharacterCard({
         <div className={styles.cardFooterSeparator} />
         <div className={styles.cardFooterTextContainer}>
           <div className={styles.cardName}>{name}</div>
-          <button className={styles.button} onClick={handleClick} type="button">
+          <button
+            data-testid="favButton"
+            className={styles.button}
+            onClick={handleClick}
+            type="button"
+          >
             <img
               src={renderIcon()}
               alt="Add to favourites"

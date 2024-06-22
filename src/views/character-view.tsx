@@ -28,7 +28,7 @@ export default function CharacterView() {
   if (isLoading || !character)
     return (
       <div style={styles.spinnerContainer}>
-        <ScaleLoader color={spinnerColor} />
+        <ScaleLoader data-testid="spinner" color={spinnerColor} />
       </div>
     );
 
