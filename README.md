@@ -64,6 +64,8 @@ This project is a React application that utilizes the Marvel API to display info
 - useSWR
 - React Spinners
 - useHooksTS
+- Vitest + @testing-library/react
+- Playwright
 
 ## Run Tests
 
