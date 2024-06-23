@@ -69,12 +69,17 @@ export default function CharacterHeader({
   };
 
   return (
-    <div className={styles.headerContainer} style={headerContainer}>
+    <div
+      data-testid="character-info-header-container"
+      className={styles.headerContainer}
+      style={headerContainer}
+    >
       <img src={`${path}.${extension}`} alt={`Character-${name}`} style={img} />
       <div style={descriptionContainer}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{name}</h1>
           <button
+            data-testid="favourite-button-character-info"
             onClick={handleFavourite}
             className={styles.favouriteButton}
             aria-label="Favorite"

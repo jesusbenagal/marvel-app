@@ -55,14 +55,24 @@ export default function Header() {
 
   return (
     <div style={styles.headerContainer}>
-      <button onClick={() => handleClickLogo()} style={styles.button}>
+      <button
+        data-testid="logo-button"
+        onClick={() => handleClickLogo()}
+        style={styles.button}
+      >
         <img src={MarvelLogo} alt="logo" />
       </button>
       <div style={styles.favouritesContainer}>
-        <button style={styles.button} onClick={() => handleClickFavourites()}>
+        <button
+          data-testid="favourites-button"
+          style={styles.button}
+          onClick={() => handleClickFavourites()}
+        >
           <img src={HeartFill} alt="heart-fill" />
         </button>
-        <span style={styles.favouritesNumber}>{totalFavourites}</span>
+        <span data-testid="favourites-number" style={styles.favouritesNumber}>
+          {totalFavourites}
+        </span>
       </div>
     </div>
   );

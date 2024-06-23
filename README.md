@@ -9,6 +9,8 @@ Marvel App built with React 18 and the Marvel API.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
+- [Run Tests](#run-tests)
+- [E2E Tests](#e2e-tests)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -62,6 +64,50 @@ This project is a React application that utilizes the Marvel API to display info
 - useSWR
 - React Spinners
 - useHooksTS
+
+## Run Tests
+
+To run tests, run the following command:
+```bash
+npm run test
+```
+
+To run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+
+To run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+To run tests in ui mode:
+```bash
+npm run test:ui
+```
+
+## E2E Tests
+To run E2E tests, run the following command for the first time:
+```bash
+npx playwright install
+```
+
+and then run the application with:
+```bash
+npm run dev
+```
+
+For running e2e tests, use the following command:
+```bash
+npm run test:e2e
+```
+
+For running in UI Mode:
+```bash
+npm run test:e2e:ui
+```
 
 ## Contributing
 
