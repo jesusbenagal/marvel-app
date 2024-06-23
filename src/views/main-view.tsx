@@ -78,7 +78,7 @@ export default function MainView() {
       />
       {isLoading ? (
         <div style={spinnerContainer}>
-          <ScaleLoader color={spinnerColor} />
+          <ScaleLoader data-testid="mainViewSpinner" color={spinnerColor} />
         </div>
       ) : (
         <GridContainer style={gridContainer}>{renderCards()}</GridContainer>
